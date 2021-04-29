@@ -18,8 +18,9 @@ import nltk
 import spacy 
 import operator
 from collections import defaultdict
+import en_core_web_sm
 
-#nltk.download('punkt')
+nltk.download('punkt')
 
 covid_data = get_data('data/nrb.csv')
 
@@ -147,7 +148,7 @@ def app():
         # remove duplicate claims (Not really needed since dropped already)
         words = covid_data.text_stem.unique()
         # NER list we'll use - Perhaps could be expanded?
-        nlp = spacy.load('en_core_web_sm')
+        nlp = en_core_web_sm.load()
         corpus = list(nlp.pipe(words[:700]))
         all_ents = defaultdict(int)
         for i, doc in enumerate(corpus):
